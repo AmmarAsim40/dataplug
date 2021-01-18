@@ -361,7 +361,8 @@ class Graph extends CI_Controller {
 
                     $form_id = $forms_list[0]['form_id'];
                     $form_single_to_query = array();
-                    $form_single_to_query[] = array('form_id' => $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
+                    $form_single_to_query[] = array('form_id' => $form_id,
+                        'table_name' => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
                     /** Get filters from  multiple forms * */
                     $multiple_filters = $this->form_model->get_form_filters($form_single_to_query);
                     $filter_attribute = array();
@@ -428,21 +429,26 @@ class Graph extends CI_Controller {
                     $final = array();
 
                     $filter_result = get_graph_view_settings($selected_form['app_id']);
-                    if (isset($filter_result->district_wise_report) && $filter_result->district_wise_report == 1) {
+                    if (isset($filter_result->district_wise_report)
+                        && $filter_result->district_wise_report == 1) {
                         foreach ($new_category_list as $cat_listv) {
-                            $district_wise_catorized = $this->form_results_model->get_district_categorized_count_new($form_id, "", $filter_attribute[0], $cat_listv, $from_date, $to_date);
+                            $district_wise_catorized = $this->form_results_model->get_district_categorized_count_new($form_id,
+                                "", $filter_attribute[0], $cat_listv, $from_date, $to_date);
 
                             foreach ($district_wise_catorized as $key => $val) {
                                 if (!array_key_exists($val['district_name'], $final_district_wise_array2)) {
                                     $final_district_wise_array2[$val['district_name']] = array();
                                     foreach ($new_category_list as $cat_listvv) {
-                                        $final_district_wise_array2[$val['district_name']] = array_merge($final_district_wise_array2[$val['district_name']], array('district' => $val['district_name'], $cat_listvv => '0', 'total' => '0'));
+                                        $final_district_wise_array2[$val['district_name']] = array_merge($final_district_wise_array2[$val['district_name']],
+                                            array('district' => $val['district_name'], $cat_listvv => '0', 'total' => '0'));
                                     }
                                 }
                                 if (array_key_exists($val['district_name'], $final_district_wise_array2)) {
-                                    $final_district_wise_array2[$val['district_name']] = array_merge($final_district_wise_array2[$val['district_name']], array($cat_listv => $val['total'], 'total' => $final_district_wise_array2[$val['district_name']]['total'] + $val['total']));
+                                    $final_district_wise_array2[$val['district_name']] = array_merge($final_district_wise_array2[$val['district_name']],
+                                        array($cat_listv => $val['total'], 'total' => $final_district_wise_array2[$val['district_name']]['total'] + $val['total']));
                                 } else {
-                                    $final_district_wise_array2[$val['district_name']] = array('district' => $val['district_name'], $cat_listv => $val['total'], 'total' => $val['total']);
+                                    $final_district_wise_array2[$val['district_name']] = array('district' => $val['district_name'],
+                                        $cat_listv => $val['total'], 'total' => $val['total']);
                                 }
                             }
                         }
@@ -453,7 +459,8 @@ class Graph extends CI_Controller {
                     $totalRecords = 0;
                     $category_list_count = array();
 
-                    $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id, "", $filter_attribute, $from_date, $to_date, $selected_district = '');
+                    $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id,
+                        "", $filter_attribute, $from_date, $to_date, $selected_district = '');
                     $category_list_count = array();
 
                     foreach ($category_count as $key => $val) {
