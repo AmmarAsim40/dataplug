@@ -655,13 +655,19 @@ $print_val</option>";
                         if (!array_key_exists($_REQUEST['district'], $final_district_wise_array2)) {
                             $final_district_wise_array2[$_REQUEST['district']] = array();
                             foreach ($new_category_list as $cat_listvv) {
-                                $final_district_wise_array2[$_REQUEST['district']] = array_merge($final_district_wise_array2[$_REQUEST['district']], array($cat_listvv => $cat_listvv, 'total' => $val['total']));
+                                $final_district_wise_array2[$_REQUEST['district']]
+                                    = array_merge($final_district_wise_array2[$_REQUEST['district']],
+                                    array($cat_listvv => $cat_listvv, 'total' => $val['total']));
                             }
                         }
                         if (array_key_exists($_REQUEST['district'], $final_district_wise_array2)) {
-                            $final_district_wise_array2[$_REQUEST['district']] = array_merge($final_district_wise_array2[$_REQUEST['district']], array($cat_listv => $cat_listv, 'total' => $final_district_wise_array2[$_REQUEST['district']]['total'] + $val['total']));
+                            $final_district_wise_array2[$_REQUEST['district']]
+                                = array_merge($final_district_wise_array2[$_REQUEST['district']],
+                                array($cat_listv => $cat_listv, 'total'
+                                => $final_district_wise_array2[$_REQUEST['district']]['total'] + $val['total']));
                         } else {
-                            $final_district_wise_array2[$_REQUEST['district']] = array($cat_listv => $cat_listv, 'total' => $val['total']);
+                            $final_district_wise_array2[$_REQUEST['district']]
+                                = array($cat_listv => $cat_listv, 'total' => $val['total']);
                         }
                     }
                 }
@@ -672,7 +678,8 @@ $print_val</option>";
             $totalRecords = 0;
             $category_list_count = array();
 
-            $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id, "", $filter_attribute, $from_date, $to_date, $selected_district = '');
+            $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id,
+                "", $filter_attribute, $from_date, $to_date, $selected_district = '');
             $category_list_count = array();
 
             foreach ($category_count as $key => $val) {
@@ -705,7 +712,8 @@ $print_val</option>";
                             $default_selected = '';
                         }
                         $print_val = str_replace("_", " ", $val);
-                        $filter_options .= "<option value='$val' $default_selected>$print_val</option>";
+                        $filter_options .= "<option value='$val' $default_selected>
+$print_val</option>";
                     }
                 }
             }
@@ -718,7 +726,8 @@ $print_val</option>";
             $data['form_id'] = $form_id;
             $data['total_records'] = $total_record;
             $data['category_list_count'] = $category_list_count;
-            $data['graph_text'] = 'Graph By <b> ' . str_replace('_', ' ', $filter_attribute[0]) . '</b>';
+            $data['graph_text'] = 'Graph By <b> ' . str_replace('_',
+                    ' ', $filter_attribute[0]) . '</b>';
             $data['pageTitle'] = " Graph-View";
             $data['graph_type'] = 'Category_sub';
             $data['app_id'] = $selected_form['app_id'];
@@ -749,7 +758,8 @@ $print_val</option>";
 
         if ($this->session->userdata('logged_in')) {
             if (!$this->acl->hasPermission('form', 'view')) {
-                $this->session->set_flashdata('validate', array('message' => "You don't have enough permissions to do this task.", 'type' => 'warning'));
+                $this->session->set_flashdata('validate', array('message'
+                => "You don't have enough permissions to do this task.", 'type' => 'warning'));
                 redirect(base_url() . 'apps');
             }
             $session_data = $this->session->userdata('logged_in');
