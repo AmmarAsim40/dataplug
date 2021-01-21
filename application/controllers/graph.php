@@ -772,7 +772,8 @@ $print_val</option>";
             $forms_list = array();
             $all_forms = $this->form_model->get_form_by_app($slug);
             foreach ($all_forms as $forms) {
-                $forms_list[] = array('form_id' => $forms['form_id'], 'table_name' => 'zform_' . $forms['form_id'], 'form_name' => $forms['form_name']);
+                $forms_list[] = array('form_id' => $forms['form_id'], 'table_name'
+                => 'zform_' . $forms['form_id'], 'form_name' => $forms['form_name']);
             }
             $data['form_lists'] = $forms_list;
 
@@ -790,7 +791,8 @@ $print_val</option>";
 
             $form_id = $forms_list[0]['form_id'];
             $form_single_to_query = array();
-            $form_single_to_query[] = array('form_id' => $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
+            $form_single_to_query[] = array('form_id' => $form_id, 'table_name'
+            => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
             /** Get filters from  multiple forms * */
             $multiple_filters = $this->form_model->get_form_filters($form_single_to_query);
             $filter_attribute = array();
@@ -854,17 +856,24 @@ $print_val</option>";
             $filter_result = get_graph_view_settings($selected_form['app_id']);
             if (isset($filter_result->district_wise_report) && $filter_result->district_wise_report == 1) {
                 foreach ($new_category_list as $cat_listv) {
-                    $district_wise_catorized = $this->form_results_model->get_monthwise_categorized_count_new($form_id, '', $filter_attribute[0], $cat_listv, $from_date, $to_date);
+                    $district_wise_catorized = $this->form_results_model
+                        ->get_monthwise_categorized_count_new($form_id, '', $filter_attribute[0],
+                            $cat_listv, $from_date, $to_date);
 
                     foreach ($district_wise_catorized as $key => $val) {
                         if (!array_key_exists($val['MONYER'], $final_district_wise_array2)) {
                             $final_district_wise_array2[$val['MONYER']] = array();
                             foreach ($new_category_list as $cat_listvv) {
-                                $final_district_wise_array2[$val['MONYER']] = array_merge($final_district_wise_array2[$val['MONYER']], array('MONYER' => $val['MONYER'], $cat_listvv => '0', 'total' => '0'));
+                                $final_district_wise_array2[$val['MONYER']]
+                                    = array_merge($final_district_wise_array2[$val['MONYER']],
+                                    array('MONYER' => $val['MONYER'], $cat_listvv => '0', 'total' => '0'));
                             }
                         }
                         if (array_key_exists($val['MONYER'], $final_district_wise_array2)) {
-                            $final_district_wise_array2[$val['MONYER']] = array_merge($final_district_wise_array2[$val['MONYER']], array($cat_listv => $val['total'], 'total' => $final_district_wise_array2[$val['MONYER']]['total'] + $val['total']));
+                            $final_district_wise_array2[$val['MONYER']]
+                                = array_merge($final_district_wise_array2[$val['MONYER']], array($cat_listv
+                            => $val['total'], 'total'
+                            => $final_district_wise_array2[$val['MONYER']]['total'] + $val['total']));
                         } else {
                             $final_district_wise_array2[$val['MONYER']] = array('MONYER' => $val['MONYER'], $cat_listv => $val['total'], 'total' => $val['total']);
                         }
@@ -877,7 +886,8 @@ $print_val</option>";
             $totalRecords = 0;
             $category_list_count = array();
 
-            $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id, "", $filter_attribute, $from_date, $to_date, $selected_district = '');
+            $category_count = $this->form_results_model->getCountCatgoryBaseNew($form_id,
+                "", $filter_attribute, $from_date, $to_date, $selected_district = '');
             $category_list_count = array();
 
             foreach ($category_count as $key => $val) {
@@ -923,7 +933,8 @@ $print_val</option>";
             $data['form_id'] = $form_id;
             $data['total_records'] = $total_record;
             $data['category_list_count'] = $category_list_count;
-            $data['graph_text'] = 'Graph By <b> ' . str_replace('_', ' ', $filter_attribute[0]) . '</b>';
+            $data['graph_text'] = 'Graph By <b> ' . str_replace('_',
+                    ' ', $filter_attribute[0]) . '</b>';
             $data['pageTitle'] = " Graph-View";
             $data['graph_type'] = 'Category_sub';
             $data['app_id'] = $selected_form['app_id'];
