@@ -964,7 +964,8 @@ $print_val</option>";
         $forms_list = array();
         $all_forms = $this->form_model->get_form_by_app($slug);
         foreach ($all_forms as $forms) {
-            $forms_list[] = array('form_id' => $forms['form_id'], 'table_name' => 'zform_' . $forms['form_id'], 'form_name' => $forms['form_name']);
+            $forms_list[] = array('form_id' => $forms['form_id'], 'table_name'
+            => 'zform_' . $forms['form_id'], 'form_name' => $forms['form_name']);
         }
         $data['form_lists'] = $forms_list;
 
@@ -995,10 +996,12 @@ $print_val</option>";
             $data['selected_sent_by'] = $selected_sent_by;
 
             $form_single_to_query = array();
-            $form_single_to_query[] = array('form_id' => $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
+            $form_single_to_query[] = array('form_id' => $form_id, 'table_name'
+            => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
 
             /** Get filters from  multiple forms * */
-            $multiple_filters = $this->form_model->get_form_filters($form_single_to_query);
+            $multiple_filters = $this->form_model
+                ->get_form_filters($form_single_to_query);
             $filter_attribute = array();
             $form_html_multiple = array();
             foreach ($multiple_filters as $key => $value) {
@@ -1022,7 +1025,8 @@ $print_val</option>";
             //add part for disbursment app - Start
             $formid = '1654';
             $date_search = '';
-            $disbursment_rec = $this->form_results_model->get_disbursment_record($formid, $date_search);
+            $disbursment_rec = $this->form_results_model
+                ->get_disbursment_record($formid, $date_search);
             //                    echo "<pre>";
             //                    print_r($disbursment_rec);
             //                    echo "<pre>";die;
@@ -1037,13 +1041,16 @@ $print_val</option>";
                     $final_disb_array[$myrep['District']][$myrep['Tehsil']] = array();
                 }
 
-                if (!key_exists($myrep['Disbursement_Center'], $final_disb_array[$myrep['District']][$myrep['Tehsil']])) {
-                    $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']] = array();
+                if (!key_exists($myrep['Disbursement_Center'],
+                    $final_disb_array[$myrep['District']][$myrep['Tehsil']])) {
+                    $final_disb_array[$myrep['District']][$myrep['Tehsil']]
+                    [$myrep['Disbursement_Center']] = array();
                 }
 
                 $available_fac = explode(',', $myrep['Facilities_Available']);
                 foreach ($available_fac as $avail_value) {
-                    if (!key_exists('facilities', $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']])) {
+                    if (!key_exists('facilities', $final_disb_array[$myrep['District']]
+                    [$myrep['Tehsil']][$myrep['Disbursement_Center']])) {
                         $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'] = array();
                     }
                     if (!in_array($avail_value, $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'])) {
