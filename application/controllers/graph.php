@@ -1101,8 +1101,11 @@ $print_val</option>";
             foreach ($category_list as $category) {
                 $categorieslist = explode(',', $category);
                 foreach ($categorieslist as $catu) {
-                    $category_count = $this->form_results_model->getCountCatgoryBase($form_id, $catu, $filter_attribute, $to_date, $from_date, $selected_district, $selected_sent_by);
-                    $category_list_count = array_merge($category_list_count, array($catu => $category_count));
+                    $category_count = $this->form_results_model
+                        ->getCountCatgoryBase($form_id, $catu, $filter_attribute, $to_date,
+                            $from_date, $selected_district, $selected_sent_by);
+                    $category_list_count = array_merge($category_list_count,
+                        array($catu => $category_count));
                     $totalRecords += $category_count;
                 }
             }
